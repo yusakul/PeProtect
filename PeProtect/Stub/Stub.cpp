@@ -1,4 +1,4 @@
-// Stub.cpp : ¶¨Òå DLL Ó¦ÓÃ³ÌĞòµÄµ¼³öº¯Êı¡£
+// Stub.cpp : å®šä¹‰ DLL åº”ç”¨ç¨‹åºçš„å¯¼å‡ºå‡½æ•°ã€‚
 //
 
 #include "stdafx.h"
@@ -20,34 +20,34 @@ extern "C" _declspec(dllexport) PACKINFO g_PackInfo = { (DWORD)Start};
 __declspec (thread) int g_nNum = 0x11111111;
 
 
-//=============´°¿Ú´´½¨===========================================
+//=============çª—å£åˆ›å»º===========================================
 //CreateWindow			User32.dll
 //GetModuleHandle		Kernel32.dll
 //ShowWindow			User32.dll
 //GetMessage			User32.dll
 //RegisterClass			User32.dll
 //DispatchMessage		User32.dll
-//WindowProc			Ö±½ÓÓÃ
+//WindowProc			ç›´æ¥ç”¨
 //PostQuitMessage		User32.dll
 //DefWindowProc			User32.dll
 //UpdateWindow			User32.dll
 
-//ÏÔÊ¾´°¿Ú
+//æ˜¾ç¤ºçª—å£
 typedef BOOL(WINAPI* SHOWWINDOW)(_In_ HWND hWnd, _In_ int nCmdShow);
 
-//»ñÈ¡ĞÅÏ¢
+//è·å–ä¿¡æ¯
 typedef BOOL(WINAPI* GETMESAGE)(
 	_Out_ LPMSG lpMsg, _In_opt_ HWND hWnd,
 	_In_ UINT wMsgFilterMin, _In_ UINT wMsgFilterMax);
 
-//·Ö·¢ÏûÏ¢
+//åˆ†å‘æ¶ˆæ¯
 typedef LRESULT(WINAPI* DISPATCHMESSAGE)(_In_ const MSG * lpmsg);
 
-//×¢²á´°¿ÚÀà
+//æ³¨å†Œçª—å£ç±»
 typedef ATOM(WINAPI* REGISTERCLASS)(
 	_In_ const WNDCLASS * lpWndClass);
 
-//´´½¨´°¿Ú
+//åˆ›å»ºçª—å£
 typedef HWND(WINAPI * CREATEWINDOWEX)(
 	_In_     DWORD     dwExStyle,
 	_In_opt_ LPCTSTR   lpClassName,
@@ -63,13 +63,13 @@ typedef HWND(WINAPI * CREATEWINDOWEX)(
 	_In_opt_ LPVOID    lpParam
 	);
 
-//·¢ËÍÁĞ¶ÓÏûÏ¢
+//å‘é€åˆ—é˜Ÿæ¶ˆæ¯
 typedef VOID(WINAPI* POSTQUITMESSAGE)(
 	_In_ int nExitCode
 	);
 
 
-//Ä¬ÈÏ´°¿Ú´¦Àíº¯Êı
+//é»˜è®¤çª—å£å¤„ç†å‡½æ•°
 typedef LRESULT(WINAPI* DEFWINDOWPROC)(
 _In_ HWND   hWnd,
 _In_ UINT   Msg,
@@ -77,30 +77,30 @@ _In_ WPARAM wParam,
 _In_ LPARAM lParam
 );
 
-//¸üĞÂ´°¿Ú
+//æ›´æ–°çª—å£
 typedef BOOL(*UPDATEWINDOW)(
 	_In_ HWND hWnd
 	);
 
-//»ñÈ¡´°¿ÚÎÄ±¾
+//è·å–çª—å£æ–‡æœ¬
 typedef int (WINAPI* GETWINDOWTEXT)(
 	_In_  HWND   hWnd,
 	_Out_ LPTSTR lpString,
 	_In_  int    nMaxCount
 	);
 
-//»ñÈ¡´°¿ÚÎÄ±¾³¤¶È
+//è·å–çª—å£æ–‡æœ¬é•¿åº¦
 typedef int (WINAPI* GETWINDOWTEXTLENGTH)(
 	_In_ HWND hWnd
 	);
 
-//¸ù¾İ¿Ø¼ş»ñÈ¡´°¿Ú¾ä±ú
+//æ ¹æ®æ§ä»¶è·å–çª—å£å¥æŸ„
 typedef HWND(WINAPI* GETDLGITEM)(
 	_In_opt_ HWND hDlg,
 	_In_     int  nIDDlgItem
 	);
 
-//ÉèÖÃ´°¿ÚÎÄ±¾
+//è®¾ç½®çª—å£æ–‡æœ¬
 typedef BOOL(WINAPI* SETWINDOWTEXT)(
 	_In_     HWND    hWnd,
 	_In_opt_ LPCTSTR lpString
@@ -202,7 +202,7 @@ typedef int(__cdecl * MYSTRCMP)(
 
 typedef DWORD(WINAPI * MYGETLASTERROR)(VOID);
 
-// ÇëÒ»¶¨×¢Òâ°Ñº¯Êıµ÷ÓÃÔ¼¶¨¼ÓÉÏ,·ñÔò»ã±à»á¶Ô²»ÉÏºÅµÄ
+// è¯·ä¸€å®šæ³¨æ„æŠŠå‡½æ•°è°ƒç”¨çº¦å®šåŠ ä¸Š,å¦åˆ™æ±‡ç¼–ä¼šå¯¹ä¸ä¸Šå·çš„
 typedef BOOL(WINAPI * MYSHGETSPECIALFOLDERPATHA)(
 	HWND   hwndOwner ,
 	_Out_ PCHAR lpszPath ,
@@ -227,21 +227,21 @@ MYSTRCMP g_strcmp = NULL;
 MYGETLASTERROR g_GetLastError = NULL;
 MYSHGETSPECIALFOLDERPATHA g_SHGetSpecialFolderPathA = NULL;
 
-DWORD g_dwImageBase;//¼ÓÔØ»ùÖ·
+DWORD g_dwImageBase;//åŠ è½½åŸºå€
 DWORD g_oep;
 
-//»ñÈ¡GetProcAddressºÍLoadLibraryAµÄº¯ÊıµØÖ·
+//è·å–GetProcAddresså’ŒLoadLibraryAçš„å‡½æ•°åœ°å€
 void  MyGetProcAddress(LPVOID *pGetProc , LPVOID *pLoadLibrary)
 {
 	PCHAR pBuf = NULL;
 	_asm
 	{
-		mov eax , fs:[0x30];//ÕÒµ½PEB
-		mov eax , [ eax + 0x0C ];//ÕÒµ½ÁËLDR
-		mov eax , [ eax + 0x0C ];//ÕÒµ½ÁËµÚÒ»¸ö½Úµã
-		mov eax , [ eax ];       //ÕÒµ½ÁËntdll
-		mov eax , [ eax ];       //ÕÒµ½ÁËkernel32.dll
-		mov ebx , dword ptr ds : [eax + 0x18];
+		mov eax , fs:[0x30];//æ‰¾åˆ°PEB
+		mov eax , [ eax + 0x0C ];//æ‰¾åˆ°äº†LDR
+		mov eax , [ eax + 0x0C ];//æ‰¾åˆ°äº†ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+		mov eax , [ eax ];       //æ‰¾åˆ°äº†ntdll
+		mov eax , [ eax ];       //æ‰¾åˆ°äº†kernel32.dll
+		mov ebx , dword ptr ds : [eax + 0x18];//åœ¨0x18åç§»å¤„å–å‡ºåŸºå€(DllBase)
 		mov pBuf , ebx;
 	}
 
@@ -253,15 +253,15 @@ void  MyGetProcAddress(LPVOID *pGetProc , LPVOID *pLoadLibrary)
 
 	PIMAGE_EXPORT_DIRECTORY pExport = (PIMAGE_EXPORT_DIRECTORY)
 		(pExportDir->VirtualAddress + pBuf);
-	//ºóÃæµÄ²½Öè
+	//åé¢çš„æ­¥éª¤
 
-	//1  ÕÒµ½Èı¸ö±í£ºÃû³Æ£¬µØÖ·£¬ĞòºÅ
+	//1  æ‰¾åˆ°ä¸‰ä¸ªè¡¨ï¼šåç§°ï¼Œåœ°å€ï¼Œåºå·
 	PDWORD pAddress = (PDWORD)(pExport->AddressOfFunctions + pBuf);
 	PDWORD pName = (PDWORD)(pExport->AddressOfNames + pBuf);
 	PWORD  pId = (PWORD)(pExport->AddressOfNameOrdinals + pBuf);
 	PVOID GetProAddress = 0;
 	PVOID LoadLibry = 0;
-	//2  ÔÚÃû³Æ±íÖĞÈ¥±éÀúGetProcAddressÕâ¸ö×Ö·û´®
+	//2  åœ¨åç§°è¡¨ä¸­å»éå†GetProcAddressè¿™ä¸ªå­—ç¬¦ä¸²
 	for(size_t i = 0; i < pExport->NumberOfNames; i++)
 	{
 		char* Name = (pName[ i ] + pBuf);
@@ -278,13 +278,13 @@ void  MyGetProcAddress(LPVOID *pGetProc , LPVOID *pLoadLibrary)
 	*pLoadLibrary = LoadLibry;
 }
 
-//»ñÈ¡º¯ÊıµØÖ·
+//è·å–å‡½æ•°åœ°å€
 void Init()
 {
-	g_nNum; //Ê¹ÓÃtls±äÁ¿,²úÉútls½Ú±í
+	g_nNum; //ä½¿ç”¨tlså˜é‡,äº§ç”ŸtlsèŠ‚è¡¨
 
 	MyGetProcAddress((LPVOID*)&g_GetProcAddress , (LPVOID*)&g_LoadLibraryA);
-	//Ê²Ã´APIº¯Êı¶¼¿ÉÒÔ¶¯Ì¬»ñÈ¡ÁË
+	//ä»€ä¹ˆAPIå‡½æ•°éƒ½å¯ä»¥åŠ¨æ€è·å–äº†
 	g_GetModuleHandleA = (MYGETMODULEHANDLEA)
 		g_GetProcAddress(g_LoadLibraryA("kernel32.dll") , "GetModuleHandleA");
 	g_VirtualProtect = (MYVIRTUALPROTECT)
@@ -310,7 +310,7 @@ void Init()
 		g_GetProcAddress(g_LoadLibraryA("Shell32.dll") , "SHGetSpecialFolderPathA");
 
 
-	//´°¿ÚÏà¹Ø======================
+	//çª—å£ç›¸å…³======================
 	g_funCreateWindowEx = (CREATEWINDOWEX)
 		g_GetProcAddress(g_LoadLibraryA("User32.dll") , "CreateWindowExW");
 	g_funPostQuitMessage = (POSTQUITMESSAGE)
@@ -342,22 +342,22 @@ void Init()
 	g_funExitProcess = (EXITPROCESS)
 		g_GetProcAddress(g_LoadLibraryA("kernel32.dll"), "ExitProcess");
 
-	//»ñÈ¡¼ÓÔØ»ùÖ·
+	//è·å–åŠ è½½åŸºå€
 	g_dwImageBase = (DWORD)g_GetModuleHandleA(NULL);
-	//»ñÈ¡OEP
+	//è·å–OEP
 	g_oep = g_PackInfo.TargetOepRva + g_dwImageBase;
 
 	
 }
 
-//Ìî³äIAT
+//å¡«å……IAT
 void DealwithIAT()
 {
 
-	// 1.»ñÈ¡µÚÒ»ÏîiatÏî
+	// 1.è·å–ç¬¬ä¸€é¡¹iaté¡¹
 	PIMAGE_IMPORT_DESCRIPTOR pImportTable =
 		(PIMAGE_IMPORT_DESCRIPTOR)((DWORD)g_PackInfo.ImportTableRva + g_dwImageBase);
-	if(g_PackInfo.ImportTableRva) //Èç¹ûÃ»ÓÃµ¼Èë±íÔòÌø¹ı
+	if(g_PackInfo.ImportTableRva) //å¦‚æœæ²¡ç”¨å¯¼å…¥è¡¨åˆ™è·³è¿‡
 	{
 		HMODULE lib;
 		IMAGE_THUNK_DATA *IAT , *INTable;
@@ -388,13 +388,13 @@ void DealwithIAT()
 	}
 }
 
-//ĞŞ¸´ExeÖØ¶¨Î»
+//ä¿®å¤Exeé‡å®šä½
 void FixExeReloc()
 {
 
-	//ÒÔÏÂÊÇÖØ¶¨Î»
+	//ä»¥ä¸‹æ˜¯é‡å®šä½
 	DWORD *tmp;
-	if(g_PackInfo.RelocRva)  //Èç¹ûÃ»ÓĞÖØ¶¨Î»±í±íÊ¾²»ÓÃÖØ¶¨Î»£¬Ìø¹ıÖØ¶¨Î»´úÂë
+	if(g_PackInfo.RelocRva)  //å¦‚æœæ²¡æœ‰é‡å®šä½è¡¨è¡¨ç¤ºä¸ç”¨é‡å®šä½ï¼Œè·³è¿‡é‡å®šä½ä»£ç 
 	{
 		DWORD relocation = (DWORD)g_dwImageBase - g_PackInfo.ImageBase;
 		IMAGE_BASE_RELOCATION  *relocationAddress = (IMAGE_BASE_RELOCATION*)(g_PackInfo.RelocRva + (DWORD)g_dwImageBase);
@@ -416,7 +416,7 @@ void FixExeReloc()
 	}
 }
 
-//½âÃÜ
+//è§£å¯†
 void Decryption()
 {
 
@@ -424,7 +424,7 @@ void Decryption()
 	PIMAGE_NT_HEADERS pNt = (PIMAGE_NT_HEADERS)(pDos->e_lfanew + g_dwImageBase);
 	PIMAGE_SECTION_HEADER pSection = IMAGE_FIRST_SECTION(pNt);
 
-	// ÕÒµ½.text¶Î,²¢½âÃÜ
+	// æ‰¾åˆ°.textæ®µ,å¹¶è§£å¯†
 	while(TRUE)
 	{
 		if(!strcmp((char*)pSection->Name , ".text"))
@@ -440,18 +440,18 @@ void Decryption()
 	}
 }
 
-//Ö´ĞĞTLS»Øµ÷
+//æ‰§è¡ŒTLSå›è°ƒ
 void TlsCallBackFun()
 {
 	
 	PIMAGE_DOS_HEADER pDos = (PIMAGE_DOS_HEADER)g_dwImageBase;
 	PIMAGE_NT_HEADERS pNt = (PIMAGE_NT_HEADERS)(pDos->e_lfanew + g_dwImageBase);
 
-	//Èç¹ûTLS¿ÉÒÔÓÃ£¬Ôòµ÷ÓÃTLS
+	//å¦‚æœTLSå¯ä»¥ç”¨ï¼Œåˆ™è°ƒç”¨TLS
 	if (g_PackInfo.bIsTlsUserful == TRUE)
 	{
 		
-		//½«TLS»Øµ÷º¯Êı±íÖ¸ÕëÉèÖÃ»ØÈ¥
+		//å°†TLSå›è°ƒå‡½æ•°è¡¨æŒ‡é’ˆè®¾ç½®å›å»
 		PIMAGE_TLS_DIRECTORY pTlsDir = (PIMAGE_TLS_DIRECTORY)
 			(pNt->OptionalHeader.DataDirectory[9].VirtualAddress + g_dwImageBase);
 		pTlsDir->AddressOfCallBacks = g_PackInfo.TlsCallbackFuncRva;
@@ -461,7 +461,7 @@ void TlsCallBackFun()
 		while ((*lpTlsFun) != NULL)
 		{
 			
-			(*lpTlsFun)((PVOID)g_dwImageBase, DLL_PROCESS_ATTACH, NULL);	//Æô¶¯Ò»¸öĞÂ½ø³Ì
+			(*lpTlsFun)((PVOID)g_dwImageBase, DLL_PROCESS_ATTACH, NULL);	//å¯åŠ¨ä¸€ä¸ªæ–°è¿›ç¨‹
 			lpTlsFun++;
 		}
 	}
@@ -475,11 +475,11 @@ wchar_t g_wcbuf100[100] = { 0 };
 wchar_t g_MIMA100[100] = L"000";
 wchar_t wStrtext[100] = L"";
 
-//ÑéÖ¤ÃÜÂë
+//éªŒè¯å¯†ç 
 int CmpPassWord() {
 	int a = 0;
 	//wchar_t g_MIMA100[100] = L"haidragon"; // h68 a61 i69 d64   72	r  a61   67	g   6F	o   6E	n
-	//wchar_t wStrtext[100] = L"ÇëÊäÈëÃÜÂë";*/
+	//wchar_t wStrtext[100] = L"è¯·è¾“å…¥å¯†ç ";*/
 	__asm
 	{
 		push eax
@@ -489,7 +489,7 @@ int CmpPassWord() {
 		push esi
 		////////////////////////////////////////////////////////////
 		mov ecx, 18
-		mov edi, offset g_MIMA100;//Õı½âÃÜÂë
+		mov edi, offset g_MIMA100;//æ­£è§£å¯†ç 
 		mov esi, offset g_wcbuf100
 			repz cmpsb
 			je  T
@@ -507,7 +507,7 @@ int CmpPassWord() {
 	return a;
 }
 
-//´°¿Ú»Øµ÷º¯Êı
+//çª—å£å›è°ƒå‡½æ•°
 LRESULT CALLBACK WindowProc(
 	_In_ HWND	hwnd,
 	_In_ UINT   uMsg,
@@ -518,64 +518,64 @@ LRESULT CALLBACK WindowProc(
 	{
 	case WM_CREATE:
 	{
-		//g_MessageBoxA(NULL, "´°¿Ú»Øµ÷º¯Êı´¥·¢", "Tip", NULL);
+		//g_MessageBoxA(NULL, "çª—å£å›è°ƒå‡½æ•°è§¦å‘", "Tip", NULL);
 
-		//´´½¨ÎÄ±¾¿ò´°¿Ú==============================================================
+		//åˆ›å»ºæ–‡æœ¬æ¡†çª—å£==============================================================
 
-		//´°¿Ú·ç¸ñ×ó¶ÔÆë¡¢×Ó´°¿Ú¡¢ÖØµş´°¿Ú¡¢×î³õ¿ÉÊÓ
+		//çª—å£é£æ ¼å·¦å¯¹é½ã€å­çª—å£ã€é‡å çª—å£ã€æœ€åˆå¯è§†
 		DWORD dwStyle = ES_LEFT | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE;
-		//À©Õ¹´°¿Ú·ç¸ñ
+		//æ‰©å±•çª—å£é£æ ¼
 		DWORD dwExStyle = WS_EX_CLIENTEDGE | WS_EX_LEFT | WS_EX_LTRREADING | WS_EX_RIGHTSCROLLBAR;
 		HWND hWnd = g_funCreateWindowEx(
-			dwExStyle, //dwExStyle À©Õ¹ÑùÊ½
-			L"Edit", //lpClassName ´°¿ÚÀàÃû
-			wStrtext, //lpWindowName ´°¿Ú±êÌâ
-			dwStyle, //dwStyle ´°¿ÚÑùÊ½
-			150, //x ×ó±ßÎ»ÖÃ
-			100, //y ¶¥±ßÎ»ÖÃ
-			200, //nWidth ¿í¶È
-			20, //nHeight ¸ß¶È
-			hwnd, //hWndParent ¸¸´°¿Ú¾ä±ú 
+			dwExStyle, //dwExStyle æ‰©å±•æ ·å¼
+			L"Edit", //lpClassName çª—å£ç±»å
+			wStrtext, //lpWindowName çª—å£æ ‡é¢˜
+			dwStyle, //dwStyle çª—å£æ ·å¼
+			150, //x å·¦è¾¹ä½ç½®
+			100, //y é¡¶è¾¹ä½ç½®
+			200, //nWidth å®½åº¦
+			20, //nHeight é«˜åº¦
+			hwnd, //hWndParent çˆ¶çª—å£å¥æŸ„ 
 			(HMENU)0x1002, //ID
-			g_GetModuleHandleA(0), //hInstance Ó¦ÓÃ³ÌĞò¾ä±ú
-			NULL //lpParam ¸½¼Ó²ÎÊı
+			g_GetModuleHandleA(0), //hInstance åº”ç”¨ç¨‹åºå¥æŸ„
+			NULL //lpParam é™„åŠ å‚æ•°
 		);
 		return 0;
 	}
 	case WM_COMMAND:
 	{
-		WORD wId = LOWORD(wParam);		//µÍ×Ö½Ú ¿Ø¼şID
-		WORD wCode = HIWORD(wParam);	//¸ß×Ö½Ú ¿Ø¼şÂë
+		WORD wId = LOWORD(wParam);		//ä½å­—èŠ‚ æ§ä»¶ID
+		WORD wCode = HIWORD(wParam);	//é«˜å­—èŠ‚ æ§ä»¶ç 
 		HANDLE hChild = (HANDLE)lParam;	
 		
-		//Èç¹ûÊÇµã»÷È·ÈÏÃÜÂë°´Å¥ 0x1001°´Å¥´°¿ÚID
+		//å¦‚æœæ˜¯ç‚¹å‡»ç¡®è®¤å¯†ç æŒ‰é’® 0x1001æŒ‰é’®çª—å£ID
 		if (wId == 0x1001 && wCode == BN_CLICKED)	
 		{
-			//»ñÈ¡ÎÄ±¾¿ò´°¿Ú¾ä±ú
+			//è·å–æ–‡æœ¬æ¡†çª—å£å¥æŸ„
 			HWND hwndCombo = g_funGetDlgItem(hwnd, 0x1002);
 			int cTxtLen = g_funGetWindowTextLength(hwndCombo);
-			//»ñÈ¡ÎÄ±¾¿òÄÚÈİ
+			//è·å–æ–‡æœ¬æ¡†å†…å®¹
 			g_funGetWindowText(hwndCombo, g_wcbuf100, 100);
 
-			//g_MessageBoxA(NULL, "°´Å¥´¥·¢", "Tip", NULL);
+			//g_MessageBoxA(NULL, "æŒ‰é’®è§¦å‘", "Tip", NULL);
 			
-			//ÑéÖ¤ÃÜÂë
+			//éªŒè¯å¯†ç 
 			if (CmpPassWord() == 1)
 			{
-				//ÑéÖ¤Í¨¹ı
-				g_funShowWindow(hwnd, SW_HIDE);	//Òş²Ø´°¿Ú
+				//éªŒè¯é€šè¿‡
+				g_funShowWindow(hwnd, SW_HIDE);	//éšè—çª—å£
 				
-				Decryption();		//½âÃÜ
-				FixExeReloc();		//ĞŞ¸´exeÖØ¶¨Î»
+				Decryption();		//è§£å¯†
+				FixExeReloc();		//ä¿®å¤exeé‡å®šä½
 				DealwithIAT();		
 				TlsCallBackFun();
 				_asm jmp g_oep;
 			}
 			else 
 			{
-				g_MessageBoxA(NULL, "ÃÜÂë´íÎó", "PwError", NULL);
+				g_MessageBoxA(NULL, "å¯†ç é”™è¯¯", "PwError", NULL);
 			}
-			//Çå¿ÕÎÄ±¾¿ò£¬µÈ´ıÏÂ´ÎÊäÈë
+			//æ¸…ç©ºæ–‡æœ¬æ¡†ï¼Œç­‰å¾…ä¸‹æ¬¡è¾“å…¥
 			g_funSetWindowText(hwndCombo, L"");
 			return 1;
 		}
@@ -596,7 +596,7 @@ LRESULT CALLBACK WindowProc(
 	}
 
 	}
-	// ·µ»ØÄ¬ÈÏµÄ´°¿Ú´¦Àí¹ı³Ì
+	// è¿”å›é»˜è®¤çš„çª—å£å¤„ç†è¿‡ç¨‹
 	return g_funDefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
@@ -607,36 +607,36 @@ void CreateWindows() {
 
 	MSG msg = { 0 };
 	//g_MessageBoxA(NULL, "new", "Tip", NULL);
-	// ÏÈ×¢²á´°¿ÚÀà
+	// å…ˆæ³¨å†Œçª—å£ç±»
 	WNDCLASS wcs = {};
-	wcs.lpszClassName = L"password";		//´°¿ÚÃû
+	wcs.lpszClassName = L"password";		//çª—å£å
 	wcs.lpfnWndProc = WindowProc;
 	wcs.hbrBackground = (HBRUSH)(COLOR_GRAYTEXT+1);
 	/////////////////////////////////////////////////////////////////////////////////////////
 	g_funRegisterClass(&wcs);
 
-//×¢²áÖ÷´°¿Ú
+//æ³¨å†Œä¸»çª—å£
 
-//´°¿ÚÀàÃûÒ»¶¨ÒªÓëÉÏÃæµÄÒ»ÖÂ
+//çª—å£ç±»åä¸€å®šè¦ä¸ä¸Šé¢çš„ä¸€è‡´
 	HWND hWnd = g_funCreateWindowEx(
 		0L, 
-		L"password",	//ÀàÃû
-		L"password",	//´°¿ÚÃû
+		L"password",	//ç±»å
+		L"password",	//çª—å£å
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		500, //x ×ó±ßÎ»ÖÃ
-		200, //y ¶¥±ßÎ»ÖÃ
-		500, //nWidth ¿í¶È
-		300, // nHeight ¸ß¶È
+		500, //x å·¦è¾¹ä½ç½®
+		200, //y é¡¶è¾¹ä½ç½®
+		500, //nWidth å®½åº¦
+		300, // nHeight é«˜åº¦
 		NULL, NULL, NULL, NULL);
-	// ÈıÖÖ·ç¸ñ  WS_OVERLAPPEDWINDOW  WS_POPUPWINDOW  WS_CHILDWINDOW
+	// ä¸‰ç§é£æ ¼  WS_OVERLAPPEDWINDOW  WS_POPUPWINDOW  WS_CHILDWINDOW
 
 
-	//´´½¨°´Å¥´°¿Ú
+	//åˆ›å»ºæŒ‰é’®çª—å£
 	g_funCreateWindowEx(0L, L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE,
-		200, 150,// ÔÚ¸¸´°¿ÚµÄ¿Í»§ÇøµÄÎ»ÖÃ£¬
-		100, 50,// ¿í ¸ß
-		hWnd,// ¸¸´°¿Ú
-		(HMENU)0x1001,// Èç¹ûÊÇ¶¥²ã´°¿Ú ¾ÍÊÇ²Ëµ¥¾ä±ú ×Ó´°¿Ú¾ÍÊÇ±¾ÉíµÄID			  
+		200, 150,// åœ¨çˆ¶çª—å£çš„å®¢æˆ·åŒºçš„ä½ç½®ï¼Œ
+		100, 50,// å®½ é«˜
+		hWnd,// çˆ¶çª—å£
+		(HMENU)0x1001,// å¦‚æœæ˜¯é¡¶å±‚çª—å£ å°±æ˜¯èœå•å¥æŸ„ å­çª—å£å°±æ˜¯æœ¬èº«çš„ID			  
 		g_GetModuleHandleA(0), 
 		NULL);
 
@@ -652,27 +652,27 @@ void CreateWindows() {
 	}
 }
 
-//½âÑ¹
+//è§£å‹
 void DeCompress()
 {
-	//1. »ñÈ¡Çø¶ÎÊ×µØÖ·
+	//1. è·å–åŒºæ®µé¦–åœ°å€
 	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)g_dwImageBase;
 	PIMAGE_NT_HEADERS pNtHeader = (PIMAGE_NT_HEADERS)(pDosHeader->e_lfanew + g_dwImageBase);
 	PIMAGE_SECTION_HEADER pSecHeader = IMAGE_FIRST_SECTION(pNtHeader);
 
-	//2. ½âÑ¹ËõÇø¶Î
-	PCHAR lpPacked = ((PCHAR)g_dwImageBase + g_PackInfo.packSectionRva);// ÄÚ´æµØÖ·
-	DWORD dwPackedSize = aPsafe_get_orig_size(lpPacked);// »ñÈ¡½âÑ¹ºóµÄ´óĞ¡
-	PCHAR lpBuffer = (PCHAR)g_VirtualAlloc(NULL, dwPackedSize, MEM_COMMIT, PAGE_EXECUTE_READWRITE);//ÉêÇëÄÚ´æ
-	aPsafe_depack(lpPacked, g_PackInfo.packSectionSize, lpBuffer, dwPackedSize);// ½âÑ¹
+	//2. è§£å‹ç¼©åŒºæ®µ
+	PCHAR lpPacked = ((PCHAR)g_dwImageBase + g_PackInfo.packSectionRva);// å†…å­˜åœ°å€
+	DWORD dwPackedSize = aPsafe_get_orig_size(lpPacked);// è·å–è§£å‹åçš„å¤§å°
+	PCHAR lpBuffer = (PCHAR)g_VirtualAlloc(NULL, dwPackedSize, MEM_COMMIT, PAGE_EXECUTE_READWRITE);//ç”³è¯·å†…å­˜
+	aPsafe_depack(lpPacked, g_PackInfo.packSectionSize, lpBuffer, dwPackedSize);// è§£å‹
 
-																				// 3.½«¸÷Çø¶Î»¹Ô­»ØÈ¥
+																				// 3.å°†å„åŒºæ®µè¿˜åŸå›å»
 	DWORD offset = 0;
 	for (int i = 0; i < g_PackInfo.PackSectionNumber; i++)
 	{
-		// Çø¶ÎµÄ±êºÅ
+		// åŒºæ®µçš„æ ‡å·
 		int index = g_PackInfo.PackInfomation[i][0];
-		// Õâ¸öÇø¶ÎµÄSizeOfRawData
+		// è¿™ä¸ªåŒºæ®µçš„SizeOfRawData
 		int size = g_PackInfo.PackInfomation[i][1];
 		int * pint = &size;
 		PCHAR destionVA = (PCHAR)g_dwImageBase + pSecHeader[index].VirtualAddress;
@@ -691,8 +691,8 @@ void DeCompress()
 			mov edi, destionVA
 			mov ebx, pint
 			mov ecx, [ebx]
-			cld; µØÖ·ÔöÁ¿´«ËÍ
-			rep movsb; repÖ´ĞĞÒ»´Î´®Ö¸Áîºóecx¼õÒ»
+			cld; åœ°å€å¢é‡ä¼ é€
+			rep movsb; repæ‰§è¡Œä¸€æ¬¡ä¸²æŒ‡ä»¤åecxå‡ä¸€
 		}
 		offset += size;
 	}
@@ -703,7 +703,7 @@ void DeCompress()
 
 
 
-//»ìÏıº¯Êı
+//æ··æ·†å‡½æ•°
 void _stdcall FusedFunc(DWORD funcAddress)
 {
 
@@ -711,49 +711,49 @@ void _stdcall FusedFunc(DWORD funcAddress)
 	{
 		jmp label1
 		label2 :
-		_emit 0xeb; //Ìøµ½ÏÂÃæµÄcall
+		_emit 0xeb; //è·³åˆ°ä¸‹é¢çš„call
 		_emit 0x04;
-		CALL DWORD PTR DS : [EAX + EBX * 2 + 0x123402EB]; //Ö´ĞĞEB 02  Ò²¾ÍÊÇÌøµ½ÏÂÒ»¾ä
+		CALL DWORD PTR DS : [EAX + EBX * 2 + 0x123402EB]; //æ‰§è¡ŒEB 02  ä¹Ÿå°±æ˜¯è·³åˆ°ä¸‹ä¸€å¥
 
-														  //	call Init;// »ñÈ¡Ò»Ğ©»ù±¾º¯ÊıµÄµØÖ·
+														  //	call Init;// è·å–ä¸€äº›åŸºæœ¬å‡½æ•°çš„åœ°å€
 
-														  // callÏÂÒ»Ìõ,ÓÃÓÚ»ñµÃeip
+														  // callä¸‹ä¸€æ¡,ç”¨äºè·å¾—eip
 		_emit 0xE8;
 		_emit 0x00;
 		_emit 0x00;
 		_emit 0x00;
 		_emit 0x00;
-		//-------Ìøµ½ÏÂÃæµÄcall
+		//-------è·³åˆ°ä¸‹é¢çš„call
 		_emit 0xEB;
 		_emit 0x0E;
 
-		//-------»¨
+		//-------èŠ±
 		PUSH 0x0;
 		PUSH 0x0;
 		MOV EAX, DWORD PTR FS : [0];
 		PUSH EAX;
-		//-------»¨
+		//-------èŠ±
 
 
 		// fused:
-		//×÷ÓÃpushÏÂÒ»ÌõÓï¾äµÄµØÖ·
+		//ä½œç”¨pushä¸‹ä¸€æ¡è¯­å¥çš„åœ°å€
 		//pop eax;
 		//add eax, 0x1b;
 		/*push eax;*/
 		CALL DWORD PTR DS : [EAX + EBX * 2 + 0x5019C083];
 
-		push funcAddress; //ÕâÀïÈç¹ûÊÇ²ÎÊı´«ÈëµÄĞèÒª×¢ÒâÉÏÃæµÄadd eax,??µÄ??
+		push funcAddress; //è¿™é‡Œå¦‚æœæ˜¯å‚æ•°ä¼ å…¥çš„éœ€è¦æ³¨æ„ä¸Šé¢çš„add eax,??çš„??
 		retn;
 
 		jmp label3
 
-			// »¨
+			// èŠ±
 			_emit 0xE8;
 		_emit 0x00;
 		_emit 0x00;
 		_emit 0x00;
 		_emit 0x00;
-		// »¨
+		// èŠ±
 
 
 	label1:
@@ -762,11 +762,11 @@ void _stdcall FusedFunc(DWORD funcAddress)
 	}
 }
 
-// ¿Ç³ÌĞò
+// å£³ç¨‹åº
 int g_num11 = 10;
 void AllFunc()
 {
-	// µİ¹éÖ´ĞĞ10´ÎºóÖ´ĞĞ¿Ç³ÌĞò
+	// é€’å½’æ‰§è¡Œ10æ¬¡åæ‰§è¡Œå£³ç¨‹åº
 	if (!g_num11)
 	{
 		_asm
@@ -803,13 +803,13 @@ void AllFunc()
 		}
 	}
 
-	//»ñÈ¡API
+	//è·å–API
 	FusedFunc((DWORD)Init);
 
-	// Ñ¹Ëõ
+	// å‹ç¼©
 	FusedFunc((DWORD)DeCompress);
 	
-	// ´´½¨ÃÜÂë´°¿Ú
+	// åˆ›å»ºå¯†ç çª—å£
 	FusedFunc((DWORD)CreateWindows);
 }
 
@@ -817,7 +817,7 @@ void AllFunc()
 _declspec(naked) void  Start()
 {
 
-	// »¨Ö¸Áî
+	// èŠ±æŒ‡ä»¤
 	_asm
 	{
 		PUSH - 1
@@ -843,7 +843,7 @@ _declspec(naked) void  Start()
 		MOV EBP, EAX
 	}
 
-	// Ö´ĞĞ¿Ç
+	// æ‰§è¡Œå£³
 	FusedFunc((DWORD)AllFunc);
 
 // 	
